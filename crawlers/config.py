@@ -1,0 +1,1 @@
+MAX_NUM_OF_PAGES = 2
