@@ -1,0 +1,1 @@
+python bbc_crawler.py settings/bbc.cfg
