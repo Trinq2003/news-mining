@@ -1,1 +1,1 @@
-python bbc_crawler.py /kaggle/working/news-mining/settings/bbc.cfg
+python news-mining/bbc_crawler.py /kaggle/working/news-mining/settings/bbc.cfg
