@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 
 from dateutil.relativedelta import relativedelta
 
@@ -18,7 +19,7 @@ class DatasetConfiguration(Configuration):
             return relativedelta(months=step)
         else:
             return relativedelta(years=step)
-
+            
     def _init_properties(self):
         return [
             ['name', '', str],
@@ -28,5 +29,5 @@ class DatasetConfiguration(Configuration):
             ['step_unit', 'day', str],
             ['step', 1, self._calculate_step],
             ['path', '', str],
-            ['sleep', 0.2, float]
+            ['sleep', 0.2, float],
         ]

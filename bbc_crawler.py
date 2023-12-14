@@ -13,3 +13,6 @@ if __name__ == '__main__':
 
     bbc_article_fetcher = BBCArticleFetcher(config)
     bbc_article_fetcher.fetch()
+
+    # if config.dump_json:
+        

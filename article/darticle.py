@@ -86,7 +86,7 @@ class ArticleFetcher:
         total_links = len(links)
         current_link = 1
 
-        titles_path = os.path.join(storage_path, 'titles')
+        titles_path = os.path.join(storage_path, 'titles.txt')
         with open(titles_path, mode='w', encoding='utf-8') as titles_file:
             articles = list()
             titles = list()
@@ -99,7 +99,7 @@ class ArticleFetcher:
                     titles.append(article['title'] + '\n')
                     articles.append(article)
 
-            articles_path = os.path.join(storage_path, 'articles')
+            articles_path = os.path.join(storage_path, 'articles.json')
             with open(articles_path, mode='w', encoding='utf-8') as articles_file:
                 json.dump({
                     'expected_number': len(links),
@@ -112,7 +112,7 @@ class ArticleFetcher:
         total_links = len(links)
         current_link = 1
 
-        titles_path = os.path.join(storage_path, 'titles')
+        titles_path = os.path.join(storage_path, 'titles.txt')
         with open(titles_path, mode='w', encoding='utf-8') as titles_file:
             for article_index, link in enumerate(links):
                 print('{c} in {t} articles\r'.format(c=current_link, t=total_links), end='')
