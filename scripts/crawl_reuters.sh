@@ -1,1 +1,0 @@
-python reuters_crawler.py settings/reuters.cfg

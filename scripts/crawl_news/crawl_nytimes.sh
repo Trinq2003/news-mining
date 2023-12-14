@@ -1,0 +1,1 @@
+python crawler/nytimes_crawler.py settings/nytimes.cfg

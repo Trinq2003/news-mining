@@ -1,7 +1,9 @@
 import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from settings.dataset_conf import DatasetConfiguration
-from article.nytimes_article import NytimeArticleFetcher
+from article.bbc_article import BBCArticleFetcher
 
 
 if __name__ == '__main__':
@@ -11,5 +13,6 @@ if __name__ == '__main__':
     config = DatasetConfiguration()
     config.load(sys.argv[1])
 
-    nytime_article_fetcher = NytimeArticleFetcher(config)
-    nytime_article_fetcher.fetch()
+    bbc_article_fetcher = BBCArticleFetcher(config)
+    bbc_article_fetcher.fetch()
+        

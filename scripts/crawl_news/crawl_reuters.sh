@@ -1,0 +1,1 @@
+python crawler/reuters_crawler.py settings/reuters.cfg

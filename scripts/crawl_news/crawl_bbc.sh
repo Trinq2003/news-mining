@@ -1,0 +1,1 @@
+python crawler/bbc_crawler.py settings/bbc.cfg
