@@ -25,4 +25,4 @@ for newspaper in newspapers_to_be_downloaded:
         script = file.read()
     # rc = subprocess.call(script, shell=True)
     if json_dumping:
-        json_storage(os.path.join(STORAGE_PATH,newspaper), os.path.join(STORAGE_PATH, './json/'))
+        json_storage(os.path.join(STORAGE_PATH,newspaper), os.path.join(STORAGE_PATH, './json/'), newspaper)
