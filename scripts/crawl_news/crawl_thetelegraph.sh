@@ -1,0 +1,1 @@
+python crawler/thetelegraph_crawler.py settings/thetelegraph.cfg
