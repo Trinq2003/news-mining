@@ -4,10 +4,14 @@ from .dlink import DownloadLinkFetcher
 
 
 class TheGuardianLinkFetcher(DownloadLinkFetcher):
+    def __init__(self, config):
+        super(TheGuardianLinkFetcher, self).__init__(config)
+        self.MONTH_ARRAY = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov','dec']
+
 
     def _next_api(self, base_url, current_date):
         year = current_date.year
-        month = current_date.month
+        month = self.MONTH_ARRAY[current_date.month-1]
         day = current_date.day
         api_url = base_url.format(year=year, month=month, day=day)
         return api_url
