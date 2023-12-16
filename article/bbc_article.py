@@ -143,6 +143,11 @@ class BBCArticleFetcher(ArticleFetcher):
         if section_element is not None:
             return section_element['content']
 
+    def _extract_tag(self, soup):
+        tag_element = soup.find('meta', property='article:tag')
+        if tag_element is not None:
+            return tag_element['content']
+
     def _extract_content(self, html):
         ContentExtractor.calculate_best_node = calculate_best_node
         ContentExtractor.post_cleanup = post_cleanup
@@ -162,6 +167,7 @@ class BBCArticleFetcher(ArticleFetcher):
             authors = self._extract_authors(head)
             description = self._extract_description(head)
             section = self._extract_section(head)
+            tags = self._extract_tag(head)
             content = self._extract_content(html)
         except Exception:
             return None
@@ -172,6 +178,7 @@ class BBCArticleFetcher(ArticleFetcher):
             'authors': authors,
             'description': description,
             'section': section,
+            'tags': tags,
             'content': content,
             'link': link
         }

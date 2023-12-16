@@ -33,6 +33,11 @@ class ReutersArticleFetcher(ArticleFetcher):
         g = Goose({'enable_image_fetching': False})
         article = g.extract(raw_html=html)
         return article.cleaned_text
+    
+    def _extract_tag(self, soup):
+        tag_element = soup.find('meta', property='article:tag')
+        if tag_element is not None:
+            return tag_element['content']
 
     def _html_to_infomation(self, html, link, date):
         soup = BeautifulSoup(html, 'html5lib')
@@ -46,6 +51,7 @@ class ReutersArticleFetcher(ArticleFetcher):
             authors = self._extract_authors(head)
             description = self._extract_description(head)
             section = self._extract_section(head)
+            tags = self._extract_tag(head)
             content = self._extract_content(html)
         except Exception as err:
             return None
@@ -56,6 +62,7 @@ class ReutersArticleFetcher(ArticleFetcher):
             'authors': authors,
             'description': description,
             'section': section,
+            'tags': tags,
             'content': content,
             'link': link
         }

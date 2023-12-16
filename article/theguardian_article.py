@@ -6,15 +6,15 @@ from dateutil.relativedelta import relativedelta
 
 from network.network import NetworkFetcher
 from .darticle import ArticleFetcher
-from link.nytimes_link import NytimesLinkFetcher
+from link.theguardian_link import TheGuardianLinkFetcher
 
 
-class NytimeArticleFetcher(ArticleFetcher):
+class TheGuardianArticleFetcher(ArticleFetcher):
 
     def __init__(self, config):
-        super(NytimeArticleFetcher, self).__init__(config)
+        super(TheGuardianArticleFetcher, self).__init__(config)
         self.config = config
-        self.download_link_fetcher = NytimesLinkFetcher(config)
+        self.download_link_fetcher = TheGuardianLinkFetcher(config)
 
     def _extract_title(self, soup):
         if soup.title is not None:
@@ -40,7 +40,7 @@ class NytimeArticleFetcher(ArticleFetcher):
         section_element = soup.find('meta', property='article:section')
         if section_element is not None:
             return section_element['content']
-    
+
     def _extract_tag(self, soup):
         tag_element = soup.find('meta', property='article:tag')
         if tag_element is not None:
@@ -61,7 +61,6 @@ class NytimeArticleFetcher(ArticleFetcher):
             authors = self._extract_authors(head)
             description = self._extract_description(head)
             section = self._extract_section(head)
-            tags = self._extract_tag(head)
             content = self._extract_content(html)
         except Exception as err:
             return None
@@ -72,7 +71,6 @@ class NytimeArticleFetcher(ArticleFetcher):
             'authors': authors,
             'description': description,
             'section': section,
-            'tags': tags,
             'content': content,
             'link': link
         }
