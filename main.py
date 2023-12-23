@@ -23,6 +23,6 @@ else:
 for newspaper in newspapers_to_be_downloaded:
     with open(f'./scripts/crawl_news/crawl_{newspaper}.sh', 'rb') as file:
         script = file.read()
-    # rc = subprocess.call(script, shell=True)
+    rc = subprocess.call(script, shell=True)
     if json_dumping:
         json_storage(os.path.join(STORAGE_PATH,newspaper), os.path.join(STORAGE_PATH, './json/'), newspaper)

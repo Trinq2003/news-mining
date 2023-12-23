@@ -128,20 +128,20 @@ class BBCArticleFetcher(ArticleFetcher):
     def _extract_published_date(self, date):
         return date.strftime('%Y-%m-%d')
 
-    def _extract_authors(self, soup):
-        authors_elements = soup.find_all('meta', property='article:author')
-        if authors_elements is not None:
-            return [authors_element['content'] for authors_element in authors_elements]
+    # def _extract_authors(self, soup):
+    #     authors_elements = soup.find_all('meta', property='article:author')
+    #     if authors_elements is not None:
+    #         return [authors_element['content'] for authors_element in authors_elements]
 
     def _extract_description(self, soup):
         description_element = soup.find('meta', property='og:description')
         if description_element is not None:
             return description_element['content']
 
-    def _extract_section(self, soup):
-        section_element = soup.find('meta', property='article:section')
-        if section_element is not None:
-            return section_element['content']
+    # def _extract_section(self, soup):
+    #     section_element = soup.find('meta', property='article:section')
+    #     if section_element is not None:
+    #         return section_element['content']
 
     def _extract_tag(self, soup):
         tag_element = soup.find('meta', property='article:tag')
@@ -164,21 +164,19 @@ class BBCArticleFetcher(ArticleFetcher):
         try:
             title = self._extract_title(head)
             published_date = self._extract_published_date(date)
-            authors = self._extract_authors(head)
+            # authors = self._extract_authors(head)
             description = self._extract_description(head)
-            section = self._extract_section(head)
+            # section = self._extract_section(head)
             tags = self._extract_tag(head)
             content = self._extract_content(html)
         except Exception:
             return None
 
         return {
-            'title': title,
-            'published_date': published_date,
-            'authors': authors,
-            'description': description,
-            'section': section,
-            'tags': tags,
-            'content': content,
-            'link': link
+            'URL': link,
+            'Title': title,
+            'Description': description,
+            'Content': content,
+            'Time': published_date,
+            'Tags': tags
         }

@@ -5,31 +5,29 @@ from goose3 import Goose
 from dateutil.relativedelta import relativedelta
 
 from network.network import NetworkFetcher
-from .darticle_page import PageArticleFetcher
-from link.thetelegraph_link import TheTelegraphLinkFetcher
+from .darticle import ArticleFetcher
+from link.economictimes_link import EconomicTimesLinkFetcher
 
 
-class TheTelegraphArticleFetcher(PageArticleFetcher):
+class EconomicTimesArticleFetcher(ArticleFetcher):
 
     def __init__(self, config):
-        super(TheTelegraphArticleFetcher, self).__init__(config)
+        super(EconomicTimesArticleFetcher, self).__init__(config)
         self.config = config
-        self.download_link_fetcher = TheTelegraphLinkFetcher(config)
+        self.download_link_fetcher = EconomicTimesLinkFetcher(config)
 
     def _extract_title(self, soup):
         if soup.title is not None:
             return soup.title.get_text()
 
     def _extract_published_date(self, soup):
-        publish_element = soup.find('meta', {'name':'DCSext.articleFirstPublished'})
+        publish_element = soup.find('time', class_='jsdtTime')
         if publish_element is not None:
-            date = publish_element['content']
-            return date
+            result = publish_element.get_text()
+            return result
 
     def _extract_authors(self, soup):
-        authors_element = soup.find('meta', {'name':'DCSext.author'})
-        if authors_element is not None:
-            return authors_element['content']
+        return None
 
     def _extract_description(self, soup):
         description_element = soup.find('meta', property='og:description')
@@ -37,14 +35,10 @@ class TheTelegraphArticleFetcher(PageArticleFetcher):
             return description_element['content']
 
     def _extract_section(self, soup):
-        section_element = soup.find('meta', {'name':'tmgads.channel'})
-        if section_element is not None:
-            return section_element['content']
-
+        return None
+    
     def _extract_tag(self, soup):
-        tag_element = soup.find('meta', {'name':'tmgads.keywords'})
-        if tag_element is not None:
-            return tag_element['content']
+        return None
 
     def _extract_content(self, html):
         g = Goose({'enable_image_fetching': False})
@@ -64,7 +58,6 @@ class TheTelegraphArticleFetcher(PageArticleFetcher):
             tags = self._extract_tag(head)
             content = self._extract_content(html)
         except Exception as err:
-            print('Error: {}'.format(err))
             return None
 
         return {

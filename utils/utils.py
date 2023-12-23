@@ -1,4 +1,5 @@
 import os
+import csv
 import json
 import collections
 
@@ -24,3 +25,21 @@ def json_storage(root_folder, storage_folder, newspaper_name):
             'articles': all_articles
         }
         json.dump(dump_data, f, indent=4)
+
+def convert_csv_to_json(csv_file, json_file):
+    with open(csv_file, 'r') as file:
+        csv_data = csv.DictReader(file)
+        data = []
+        for row in csv_data:
+            data.append(row)
+    with open(json_file, 'w') as file:
+        json.dump(data, file, indent=4)
+
+def convert_json_to_csv(json_file, csv_file):
+    with open(json_file, 'r') as file:
+        json_data = json.load(file)
+        data = json_data['articles']
+    with open(csv_file, 'w') as file:
+        csv_data = csv.DictWriter(file, data[0].keys())
+        csv_data.writeheader()
+        csv_data.writerows(data)
